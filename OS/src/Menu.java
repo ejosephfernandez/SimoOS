@@ -1,3 +1,7 @@
+import almacenamiento.Almacenamiento;
+import concurrencia.Concurrencia;
+import cpu.PlanificacionCPU;
+import memoria.GestionMemoria;
 import seguridad.Bitacora;
 import seguridad.GestorDeAcceso;
 import seguridad.Usuarios;
@@ -19,6 +23,11 @@ public class Menu {
 
     public void mostrar() {
         int opcion;
+        PlanificacionCPU cpu = new PlanificacionCPU(entrada);
+        Concurrencia concurrencia = new Concurrencia(entrada);
+        GestionMemoria memoria = new GestionMemoria(entrada);
+        Almacenamiento almacenamiento = new Almacenamiento(entrada);
+
 
         do {
             System.out.println("\n========== SimOS v1.0 ==========");
@@ -27,7 +36,7 @@ public class Menu {
             System.out.println("1. Planificacion de CPU");
             System.out.println("2. Concurrencia y sincronizacion");
             System.out.println("3. Gestion de memoria");
-            System.out.println("4. Almacenamiento (planificacion de disco)");
+            System.out.println("4. Almacenamiento");
             System.out.println("0. Cerrar sesion");
             System.out.print("Seleccione una opcion: ");
 
@@ -38,10 +47,10 @@ public class Menu {
             }
 
             switch (opcion) {
-                case 1 -> abrirModulo(GestorDeAcceso.MOD_CPU);
-                case 2 -> abrirModulo(GestorDeAcceso.MOD_CONCURRENCIA);
-                case 3 -> abrirModulo(GestorDeAcceso.MOD_MEMORIA);
-                case 4 -> abrirModulo(GestorDeAcceso.MOD_ALMACENAMIENTO);
+                case 1 -> cpu.ejecutar();
+                case 2 -> concurrencia.ejecutar();
+                case 3 -> memoria.ejecutar();
+                case 4 -> almacenamiento.ejecutar();
                 case 0 -> {
                     bitacora.registrar(usuario.getNombre(), "Cierre de sesion", true);
                     System.out.println("Sesion cerrada.");
